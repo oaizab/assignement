@@ -10,8 +10,11 @@ export const updateTodoAction = async (formData: FormData) => {
   if (!id || !title) {
     return;
   }
-
-  await updateTodo(id, { title });
+  try {
+    await updateTodo(id, { title });
+  } catch {
+    return 'An error occurred while updating the todo.';
+  }
 
   revalidatePath('/');
 }

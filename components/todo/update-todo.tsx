@@ -40,6 +40,10 @@ const Submit = () => {
 const UpdateTodo = ({ id, title }: UpdateTodoProps) => {
   const [value, setValue] = React.useState(title);
 
+  const onAction = async (formData: FormData) => {
+    await updateTodoAction(formData);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -50,7 +54,7 @@ const UpdateTodo = ({ id, title }: UpdateTodoProps) => {
       <DialogContent className="p-0 bg-transparent border-none">
         <DialogTitle></DialogTitle>
         <Card>
-          <Form action={updateTodoAction}>
+          <Form action={onAction}>
             <CardHeader>Edit Todo</CardHeader>
             <CardContent>
               <Input type="hidden" name="id" value={id} />
