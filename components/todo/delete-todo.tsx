@@ -10,8 +10,19 @@ interface DeleteTodoProps {
 }
 
 const DeleteTodo = ({ id }: DeleteTodoProps) => {
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
   return (
-    <Button variant="ghost" onClick={() => deleteTodoAction(id)}>
+    <Button
+      variant="ghost"
+      size="icon"
+      disabled={isDeleting}
+      onClick={async () => {
+        setIsDeleting(true);
+        await deleteTodoAction(id);
+        setIsDeleting(false);
+      }}
+    >
       <Trash2 />
     </Button>
   );
