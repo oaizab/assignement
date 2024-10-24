@@ -20,11 +20,22 @@ import {
 } from '@/components/ui/card';
 import { Pencil } from 'lucide-react';
 import { updateTodoAction } from '@/actions/update';
+import { useFormStatus } from 'react-dom';
 
 interface UpdateTodoProps {
   id: string;
   title: string;
 }
+
+const Submit = () => {
+  const status = useFormStatus();
+
+  return (
+    <Button type="submit" disabled={status.pending}>
+      {status.pending ? 'Updating' : 'Update'}
+    </Button>
+  );
+};
 
 const UpdateTodo = ({ id, title }: UpdateTodoProps) => {
   const [value, setValue] = React.useState(title);
@@ -54,7 +65,7 @@ const UpdateTodo = ({ id, title }: UpdateTodoProps) => {
             </CardContent>
             <CardFooter>
               <DialogClose>
-                <Button type="submit">Update</Button>
+              <Submit />
               </DialogClose>
             </CardFooter>
           </Form>

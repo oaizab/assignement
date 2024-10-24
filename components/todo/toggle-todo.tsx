@@ -10,12 +10,18 @@ interface ToggleTodoProps {
   completed: boolean;
 }
 
-const ToggleTodo = ({id, completed}: ToggleTodoProps) => {
+const ToggleTodo = ({ id, completed }: ToggleTodoProps) => {
+  const [isCompleted, setIsCompleted] = React.useState(false);
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => completeTodoAction(id)}
+      disabled={isCompleted}
+      onClick={async () => {
+        setIsCompleted(true);
+        await completeTodoAction(id);
+        setIsCompleted(false);
+      }}
     >
       {completed ? <SquareCheckBig /> : <Square />}
     </Button>
